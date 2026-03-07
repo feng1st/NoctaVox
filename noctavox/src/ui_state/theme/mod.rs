@@ -7,7 +7,7 @@ mod theme_config;
 mod theme_manager;
 mod theme_utils;
 
-pub use color_utils::{SHARP_FACTOR, fade_color, get_gradient_color_at_time};
+pub use color_utils::{SHARP_FACTOR, fade_color};
 pub use display_theme::DisplayTheme;
 pub use gradients::{InactiveGradient, ProgressGradient};
 pub use import::{ProgressGradientRaw, ThemeImport};

@@ -1,5 +1,6 @@
 use crate::ui_state::{
-    ProgressGradientRaw, fade_color, get_gradient_color_at_time, theme::theme_utils::parse_color,
+    ProgressGradientRaw, fade_color,
+    theme::{color_utils::get_gradient_color, theme_utils::parse_color},
 };
 use anyhow::Result;
 use ratatui::style::Color;
@@ -41,7 +42,7 @@ impl ProgressGradient {
     pub fn color_at(&self, position: f32, time: f32, speed: f32) -> Color {
         match &self {
             ProgressGradient::Static(c) => *c,
-            ProgressGradient::Gradient(g) => get_gradient_color_at_time(&g, position, time * speed),
+            ProgressGradient::Gradient(g) => get_gradient_color(&g, position, time * speed),
         }
     }
 }
@@ -81,7 +82,7 @@ impl InactiveGradient {
     ) -> Color {
         match self {
             InactiveGradient::Static(c) => *c,
-            InactiveGradient::Gradient(g) => get_gradient_color_at_time(g, position, time * speed),
+            InactiveGradient::Gradient(g) => get_gradient_color(g, position, time * speed),
             InactiveGradient::Dimmed => {
                 let brightness = match played {
                     ProgressGradient::Static(_) => 0.4,

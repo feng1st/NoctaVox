@@ -58,9 +58,6 @@ impl UiState {
     pub fn update_spectrum(&mut self) {
         if self.sample_tap.is_empty() {
             return;
-        }
-        if self.metrics.is_paused() || self.metrics.is_stopped() {
-            self.spectrum.decay();
         } else {
             let samples = self.sample_tap.make_contiguous();
             let channels = self.metrics.channels();

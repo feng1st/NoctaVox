@@ -21,7 +21,9 @@ impl StatefulWidget for SpectrumAnalyzer {
         buf: &mut ratatui::prelude::Buffer,
         state: &mut Self::State,
     ) {
-        state.update_spectrum();
+        if state.player_is_active() && !state.is_paused() {
+            state.update_spectrum();
+        }
 
         let theme = state.theme_manager.get_display_theme(true);
         let elapsed = state.get_playback_elapsed_f32();

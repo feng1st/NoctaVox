@@ -185,6 +185,14 @@ impl UiState {
         self.metrics.get_state() != PlaybackState::Stopped && self.get_now_playing().is_some()
     }
 
+    pub fn get_layout(&self) -> &LayoutStyle {
+        &self.layout
+    }
+
+    pub fn set_layout(&mut self, layout: LayoutStyle) {
+        self.layout = layout
+    }
+
     pub fn swap_layout(&mut self) {
         match self.layout {
             LayoutStyle::Traditional => self.layout = LayoutStyle::Minimal,

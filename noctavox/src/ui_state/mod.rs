@@ -42,6 +42,24 @@ pub enum LayoutStyle {
     Minimal,
 }
 
+impl std::fmt::Display for LayoutStyle {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            LayoutStyle::Minimal => write!(f, "mini"),
+            _ => write!(f, "trad"),
+        }
+    }
+}
+
+impl LayoutStyle {
+    pub fn from_str(s: &str) -> Self {
+        match s {
+            "mini" => LayoutStyle::Minimal,
+            _ => LayoutStyle::Traditional,
+        }
+    }
+}
+
 pub struct UiState {
     library: Arc<Library>,
     db_worker: DbWorker,

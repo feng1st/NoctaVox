@@ -1,6 +1,6 @@
 use anyhow::Result;
 
-use crate::ui_state::ProgressDisplay;
+use crate::ui_state::{LayoutStyle, ProgressDisplay};
 
 use super::{AlbumSort, Mode, Pane, UiState};
 
@@ -11,6 +11,7 @@ pub struct UiSnapshot {
     pub album_sort: String,
     pub sidebar_percentage: u16,
 
+    pub layout: String,
     pub theme_name: String,
 
     pub song_selection: Option<usize>,
@@ -32,6 +33,7 @@ impl UiSnapshot {
             ("ui_pane", self.pane.clone()),
             ("ui_album_sort", self.album_sort.clone()),
             ("ui_theme", self.theme_name.clone()),
+            ("ui_layout", self.layout.clone()),
             ("ui_smooth", format!("{:.1}", self.smoothing_factor)),
             ("ui_sidebar_percent", self.sidebar_percentage.to_string()),
             ("ui_progress_display", self.progress_display.to_string()),
@@ -64,6 +66,7 @@ impl UiSnapshot {
                 "ui_pane" => snapshot.pane = value,
                 "ui_progress_display" => snapshot.progress_display = value,
                 "ui_theme" => snapshot.theme_name = value,
+                "ui_layout" => snapshot.layout = value,
                 "ui_album_sort" => snapshot.album_sort = value,
                 "ui_album_pos" => snapshot.album_selection = value.parse().ok(),
                 "ui_playlist_pos" => snapshot.playlist_selection = value.parse().ok(),
@@ -98,6 +101,7 @@ impl UiState {
             sidebar_percentage: self.display_state.sidebar_percent,
 
             theme_name: self.theme_manager.active.name.to_owned(),
+            layout: self.layout.to_string(),
 
             song_selection: self.display_state.table_pos.selected(),
             album_selection: self.display_state.album_pos.selected(),
@@ -130,6 +134,8 @@ impl UiState {
                     self.set_theme(theme.clone());
                 }
             }
+
+            self.set_layout(LayoutStyle::from_str(&snapshot.layout));
 
             if let Some(pos) = snapshot.album_selection {
                 if pos < self.albums.len() {

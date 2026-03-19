@@ -21,7 +21,7 @@ pub fn render(f: &mut Frame, state: &mut UiState) {
         return;
     }
 
-    match state.layout {
+    match state.get_layout() {
         LayoutStyle::Traditional => render_traditional(area, f, state),
         LayoutStyle::Minimal => render_minimal(area, f, state),
     };

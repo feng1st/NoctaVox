@@ -28,7 +28,7 @@ impl StatefulWidget for Waveform {
             _ => (area.height as f32 * 0.35) as u16,
         };
 
-        let padding = match state.layout {
+        let padding = match state.get_layout() {
             LayoutStyle::Traditional => Padding {
                 left: 10,
                 right: 10,

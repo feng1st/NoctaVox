@@ -23,8 +23,8 @@ impl LayoutTraditional {
             false => 0,
         };
 
-        let [upper_block, display_widget] =
-            Layout::vertical([Constraint::Min(16), Constraint::Length(prog_height)]).areas(area);
+        let [upper_block, display_widget, _bottom_pad] =
+            Layout::vertical([Constraint::Min(16), Constraint::Length(prog_height), Constraint::Length(1)]).areas(area);
 
         let [sidebar, upper_block] = Layout::horizontal([
             Constraint::Percentage(state.display_state.sidebar_percent),
